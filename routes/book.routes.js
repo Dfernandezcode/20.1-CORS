@@ -29,6 +29,7 @@ router.get("/", async (req, res) => {
 
     res.json(response);
   } catch (error) {
+    console.error(error); // add errors to all catches! good development practice.
     res.status(500).json(error);
   }
 });
@@ -44,6 +45,7 @@ router.get("/:id", async (req, res) => {
       res.status(404).json({});
     }
   } catch (error) {
+    console.error(error);
     res.status(500).json(error);
   }
 });
@@ -59,6 +61,7 @@ router.get("/title/:title", async (req, res) => {
       res.status(404).json([]);
     }
   } catch (error) {
+    console.error(error);
     res.status(500).json(error);
   }
 });
@@ -71,6 +74,7 @@ router.post("/", async (req, res) => {
     const createdBook = await book.save();
     return res.status(201).json(createdBook);
   } catch (error) {
+    console.error(error);
     res.status(500).json(error);
   }
 });
@@ -87,6 +91,7 @@ router.delete("/:id", async (req, res) => {
       res.status(404).json({});
     }
   } catch (error) {
+    console.error(error);
     res.status(500).json(error);
   }
 });
@@ -102,6 +107,7 @@ router.put("/:id", async (req, res) => {
       res.status(404).json({});
     }
   } catch (error) {
+    console.error(error);
     res.status(500).json(error);
   }
 });

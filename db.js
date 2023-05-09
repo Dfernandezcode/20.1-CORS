@@ -14,11 +14,18 @@ const config = {
 };
 
 const connect = async () => {
-  const database = await mongoose.connect(DB_CONNECTION, config);
-  const name = database.connection.name;
-  const host = database.connection.host;
-  console.log(`Conectado a la base de datos ${name} en el host ${host}`);
-  return database;
+  try {
+    // try following connection
+    const database = await mongoose.connect(DB_CONNECTION, config);
+    const name = database.connection.name;
+    const host = database.connection.host;
+    console.log(`Conectado a la base de datos ${name} en el host ${host}`);
+    return database;
+  } catch (error) {
+    console.error(error);
+    console.log("Connection error - rety in 5s..."); // error message.
+    setTimeout(connect, 5000); // reconnect in 5 seconds function.
+  }
 };
 
 module.exports = { connect };
