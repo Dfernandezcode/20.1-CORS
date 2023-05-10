@@ -62,6 +62,7 @@ router.get("/title/:title", async (req, res) => {
     }
   } catch (error) {
     console.error(error);
+    console.error(error.name);
     res.status(500).json(error);
   }
 });
@@ -74,8 +75,13 @@ router.post("/", async (req, res) => {
     const createdBook = await book.save();
     return res.status(201).json(createdBook);
   } catch (error) {
-    console.error(error);
-    res.status(500).json(error);
+    // console.error(error);
+    console.error(error.name);
+    if (error.name === "ValidationError") {
+      res.status(400).json(error);
+    } else {
+      res.status(500).json(error);
+    }
   }
 });
 
