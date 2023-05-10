@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const allowedCountries = ["SPAIN", "ITALY", "GERMANY", "COLOMBIA", "UNITED KINGDOM", "USA"];
+const allowedCountries = ["SPAIN", "RUSSIA", "ITALY", "CZECHOSLOVAKIA", "FRANCE", "GERMANY", "ARGENTINA", "COLOMBIA", "UNITED KINGDOM", "ENGLAND", "USA", "JAPAN", "CHINA", "INDIA"];
+
+/*
+--------- GET DATE BY CURRENT YEAR. ---------
+const currentDate = new Date(); // consult current date.
+const currentYear = currentDate.getFullYear(); // Specific function for obtaining current year.
+*/
+
 // Creamos el schema del usuario
 const bookSchema = new Schema(
   {
@@ -23,8 +30,8 @@ const bookSchema = new Schema(
     pages: {
       type: Number,
       required: false,
-      minLength: 1,
-      maxLength: 3000,
+      min: [1, "Minimum page count is 1"],
+      max: [3000, "Maximum page count is 3000"],
       trim: true,
     },
     publisher: {
@@ -42,6 +49,7 @@ const bookSchema = new Schema(
           minLength: 3,
           maxLength: 36,
           enum: allowedCountries,
+          uppercase: true,
           trim: true,
         },
       },
