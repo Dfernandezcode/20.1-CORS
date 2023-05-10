@@ -12,13 +12,13 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="app">
       <h1>Books</h1>
       <ul>
         {books?.map((book) => (
           <>
-            <li>{book.title}</li>
-            <li>{book.author}</li>
+            <li key={book._id}>{book.title}</li>
+            <li key={book._id}>{book.author}</li>
           </>
         ))}
       </ul>

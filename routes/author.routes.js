@@ -9,6 +9,7 @@ const router = express.Router();
 
 // CRUD: READ
 router.get("/", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   try {
     // Asi leemos query params
     const page = parseInt(req.query.page);
@@ -35,6 +36,7 @@ router.get("/", async (req, res) => {
 
 // CRUD: READ
 router.get("/:id", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   try {
     const id = req.params.id;
     const author = await Author.findById(id);
@@ -58,6 +60,7 @@ router.get("/:id", async (req, res) => {
 
 // CRUD: CREATE
 router.post("/", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   try {
     const author = new Author(req.body);
     const createdAuthor = await author.save();
@@ -69,6 +72,7 @@ router.post("/", async (req, res) => {
 
 // CRUD: DELETE
 router.delete("/:id", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   try {
     const id = req.params.id;
     const authorDeleted = await Author.findByIdAndDelete(id);
@@ -84,6 +88,7 @@ router.delete("/:id", async (req, res) => {
 
 // CRUD: UPDATE
 router.put("/:id", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   try {
     const id = req.params.id;
     const authorUpdated = await Author.findByIdAndUpdate(id, req.body, { new: true });
