@@ -9,6 +9,7 @@ const router = express.Router();
 // CRUD: READ
 // EJEMPLO DE REQ: http://localhost:3000/book?page=1&limit=10
 router.get("/", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   try {
     // Asi leemos query params
     const page = parseInt(req.query.page);
@@ -36,6 +37,7 @@ router.get("/", async (req, res) => {
 
 // CRUD: READ
 router.get("/:id", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   try {
     const id = req.params.id;
     const book = await Book.findById(id).populate("author");
@@ -51,8 +53,8 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/title/:title", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   const title = req.params.title;
-
   try {
     const book = await Book.find({ title: new RegExp("^" + title.toLowerCase(), "i") }).populate("author");
     if (book?.length) {
@@ -70,6 +72,7 @@ router.get("/title/:title", async (req, res) => {
 // Endpoint de creación de libros
 // CRUD: CREATE
 router.post("/", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000"); // Access Control header - to enable CORS access.
   try {
     const book = new Book(req.body);
     const createdBook = await book.save();
@@ -88,6 +91,7 @@ router.post("/", async (req, res) => {
 // Para elimnar libros
 // CRUD: DELETE
 router.delete("/:id", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   try {
     const id = req.params.id;
     const bookDeleted = await Book.findByIdAndDelete(id);
@@ -104,6 +108,7 @@ router.delete("/:id", async (req, res) => {
 
 // CRUD: UPDATE
 router.put("/:id", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   try {
     const id = req.params.id;
     const bookUpdated = await Book.findByIdAndUpdate(id, req.body, { new: true });
